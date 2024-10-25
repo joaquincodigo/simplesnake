@@ -1,0 +1,17 @@
+body {
+	background-color: paleturquoise;
+}
+
+#board {
+	display: flex;
+}
+
+.row {
+	background-color: green;
+}
+
+.cell {
+	height: 20px;
+	width: 20px;
+	border: 0.1px solid darkgreen;
+}
