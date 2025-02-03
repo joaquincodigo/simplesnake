@@ -77,23 +77,6 @@ window.addEventListener("load", () => {
     }
   }
 
-  function isWallCell(cell) {
-    if (
-      // North wall
-      cell.y === 0 ||
-      // South wall
-      cell.y === 15 ||
-      // East wall
-      cell.x === 0 ||
-      // West wall
-      cell.x === 20
-    ) {
-      return true; // a wall has been hit
-    }
-
-    return false;
-  }
-
   function moveSnake() {
     console.log("moveSnake() called");
 
@@ -162,11 +145,38 @@ window.addEventListener("load", () => {
     // Colission with a fruit (eating)
   }
 
-  function handleWallCollision(headCoordinate) {}
+  function createNewFruit() {
+    // TODO
+  }
 
-  function handleSelfCollision(headCoordinate) {}
+  function handleSelfCollision(headCell) {
+    // TODO
+  }
 
-  function handleFruitCollision(headCoordinate) {}
+  function handleFruitCollision(headCell) {
+    // TODO
+  }
+
+  function handleWallCollision(headCell) {
+    // TODO
+  }
+
+  function isWallCell(cell) {
+    if (
+      // North wall
+      cell.y === 0 ||
+      // South wall
+      cell.y === 15 ||
+      // East wall
+      cell.x === 0 ||
+      // West wall
+      cell.x === 20
+    ) {
+      return true; // a wall has been hit
+    }
+
+    return false;
+  }
 
   function main() {
     mountHtmlGrid();
