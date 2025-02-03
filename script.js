@@ -21,11 +21,13 @@ window.addEventListener("load", () => {
   };
 
   MOVING_DIRECTION = "east";
+  FRUIT_CELL = ""; // ToDo: Get a random cell coordiantes for a fruit
 
   //  ==================== FUNCTIONS ====================
   function mountHtmlGrid() {
     let gridYSize = 15;
     let gridXSize = 20;
+
     for (let i = 0; i <= gridYSize; i++) {
       // Create a row
       let row = document.createElement("div");
@@ -73,6 +75,23 @@ window.addEventListener("load", () => {
         newSnakeCell.classList.add("head");
       }
     }
+  }
+
+  function isWallCell(cell) {
+    if (
+      // North wall
+      cell.y === 0 ||
+      // South wall
+      cell.y === 15 ||
+      // East wall
+      cell.x === 0 ||
+      // West wall
+      cell.x === 20
+    ) {
+      return true; // a wall has been hit
+    }
+
+    return false;
   }
 
   function moveSnake() {
@@ -136,24 +155,18 @@ window.addEventListener("load", () => {
       }
     });
   }
-  
+
   function handleCollision() {
     // Colission with a wall
     // Colission with the snake itself
     // Colission with a fruit (eating)
   }
-  
-  function handleWallCollision(headCoordinate) {
 
-  }
-  
-  function handleSelfCollision(headCoordinate) {
-    
-  }
-  
-  function handleFruitCollision(headCoordinate) {
-    
-  }
+  function handleWallCollision(headCoordinate) {}
+
+  function handleSelfCollision(headCoordinate) {}
+
+  function handleFruitCollision(headCoordinate) {}
 
   function main() {
     mountHtmlGrid();
