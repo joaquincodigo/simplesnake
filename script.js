@@ -111,22 +111,48 @@ window.addEventListener("load", () => {
     document.addEventListener("keydown", (event) => {
       switch (event.key) {
         case "ArrowUp":
-          MOVING_DIRECTION = "north";
+          if (MOVING_DIRECTION != "south") {
+            MOVING_DIRECTION = "north";
+          }
           break;
 
         case "ArrowRight":
-          MOVING_DIRECTION = "east";
+          if (MOVING_DIRECTION != "west") {
+            MOVING_DIRECTION = "east";
+          }
           break;
 
         case "ArrowDown":
-          MOVING_DIRECTION = "south";
+          if (MOVING_DIRECTION != "north") {
+            MOVING_DIRECTION = "south";
+          }
           break;
 
         case "ArrowLeft":
-          MOVING_DIRECTION = "west";
+          if (MOVING_DIRECTION != "east") {
+            MOVING_DIRECTION = "west";
+          }
           break;
       }
     });
+  }
+  
+  function handleCollision() {
+    // Colission with a wall
+    // Colission with the snake itself
+    // Colission with a fruit (eating)
+  }
+  
+  function handleWallCollision(headCoordinate) {
+
+  }
+  
+  function handleSelfCollision(headCoordinate) {
+    
+  }
+  
+  function handleFruitCollision(headCoordinate) {
+    
   }
 
   function main() {
