@@ -20,13 +20,14 @@ window.addEventListener("load", () => {
     },
   };
 
-  MOVING_DIRECTION = "east";
-  FRUIT_CELL = ""; // ToDo: Get a random cell coordiantes for a fruit
+  let MOVING_DIRECTION = "east";
+  let FRUIT_CELL = { x: 1, y: 2 }; // ToDo: Get a random cell coordiantes for a fruit
+  let GRID_DIMENTIONS = { x: 20, y: 15 };
 
   //  ==================== FUNCTIONS ====================
   function mountHtmlGrid() {
-    let gridYSize = 15;
-    let gridXSize = 20;
+    let gridXSize = GRID_DIMENTIONS.x;
+    let gridYSize = GRID_DIMENTIONS.y;
 
     for (let i = 0; i <= gridYSize; i++) {
       // Create a row
@@ -78,9 +79,7 @@ window.addEventListener("load", () => {
   }
 
   function moveSnake() {
-    console.log("moveSnake() called");
-
-    /* The movement of the sanke is an ilussion caused by
+    /* The movement of the snake is an ilussion caused by
     removing its tail and adding a new head in the square
     to which the snake is moving to.  */
 
@@ -106,7 +105,6 @@ window.addEventListener("load", () => {
         SNAKE.body.unshift({ x: SNAKE.head.x - 1, y: SNAKE.head.y });
         break;
     }
-    console.log("Snake Body", SNAKE.body);
   }
 
   function initializeKeyHandling() {
@@ -140,42 +138,40 @@ window.addEventListener("load", () => {
   }
 
   function handleCollision() {
-    // Colission with a wall
-    // Colission with the snake itself
-    // Colission with a fruit (eating)
+    const isWallColission = () => {
+      return (
+        SNAKE.head.y === 0 || // Top wall
+        SNAKE.head.x === 0 || // Left wall
+        SNAKE.head.y === GRID_DIMENTIONS.y || // Bottom wall
+        SNAKE.head.x === GRID_DIMENTIONS.x // Right wall
+      );
+    };
+
+    const isSelfColission = () => {
+      // TODO
+    };
+
+    const isFruitColission = () => {
+      return SNAKE.head === FRUIT_CELL;
+    };
+
+    // Testing Testing Testing Testing Testing Testing
+    if (isWallColission()) {
+      console.error("WALL HIT");
+    }
+
+    // if (isSelfColission()) {
+    //   console.error("SELF HIT");
+    // }
+
+    if (isFruitColission()) {
+      console.error("Fruit Colided");
+    }
+    // Testing Testing Testing Testing Testing Testing
   }
 
   function createNewFruit() {
     // TODO
-  }
-
-  function handleSelfCollision(headCell) {
-    // TODO
-  }
-
-  function handleFruitCollision(headCell) {
-    // TODO
-  }
-
-  function handleWallCollision(headCell) {
-    // TODO
-  }
-
-  function isWallCell(cell) {
-    if (
-      // North wall
-      cell.y === 0 ||
-      // South wall
-      cell.y === 15 ||
-      // East wall
-      cell.x === 0 ||
-      // West wall
-      cell.x === 20
-    ) {
-      return true; // a wall has been hit
-    }
-
-    return false;
   }
 
   function main() {
@@ -184,6 +180,7 @@ window.addEventListener("load", () => {
 
     setInterval(() => {
       renderFrame();
+      handleCollision();
     }, 500);
   }
 
