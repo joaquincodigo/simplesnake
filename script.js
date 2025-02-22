@@ -21,7 +21,7 @@ window.addEventListener("load", () => {
   };
 
   let MOVING_DIRECTION = "east";
-  let FRUIT_CELL = { x: 1, y: 2 }; // ToDo: Get a random cell coordiantes for a fruit
+  let FRUIT_CELL = { x: 1, y: 1 }; // ToDo: Get a random cell coordiantes for a fruit
   let GRID_DIMENTIONS = { x: 20, y: 15 };
 
   //  ==================== FUNCTIONS ====================
@@ -50,8 +50,6 @@ window.addEventListener("load", () => {
   }
 
   function renderFrame() {
-    // console.log("renderFrame() called.");
-
     // Delete current snake body
     for (const bodyChunk of SNAKE.body) {
       let oldSnakeCell = document.getElementById(
@@ -76,6 +74,24 @@ window.addEventListener("load", () => {
         newSnakeCell.classList.add("head");
       }
     }
+
+    // Render fruit
+    // Remove previous fruit
+    const oldFruitCell = document.getElementById(
+      `${FRUIT_CELL.x},${FRUIT_CELL.y}`
+    );
+    oldFruitCell.classList.remove("fruit");
+
+    // Re-draw fruit
+    const newFruitCell = document.getElementById(
+      `${FRUIT_CELL.x},${FRUIT_CELL.y}`
+    );
+
+    // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
+    console.log(`${FRUIT_CELL.x},${FRUIT_CELL.y}`);
+    // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
+
+    newFruitCell.classList.add("fruit");
   }
 
   function moveSnake() {
@@ -171,13 +187,23 @@ window.addEventListener("load", () => {
   }
 
   function createNewFruit() {
-    // TODO
+    const getRandomNumber = (min, max) => {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+
+    FRUIT_CELL.x = getRandomNumber(1, GRID_DIMENTIONS.x);
+    FRUIT_CELL.y = getRandomNumber(1, GRID_DIMENTIONS.y);
+    // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
+    console.log("IM IN LOVE WITH THE WORLD!!!", FRUIT_CELL);
+    // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
   }
 
   function main() {
     mountHtmlGrid();
     initializeKeyHandling();
-
+    // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
+    createNewFruit();
+    // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
     setInterval(() => {
       renderFrame();
       handleCollision();
