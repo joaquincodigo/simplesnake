@@ -1,5 +1,5 @@
 window.addEventListener("load", () => {
-  //  ==================== VARIABLES ====================
+  //  ==================== STATE ====================
   let SNAKE = {
     body: [
       { x: 13, y: 10 },
@@ -19,10 +19,12 @@ window.addEventListener("load", () => {
       return this.body[this.body.length - 1];
     },
   };
-
   let MOVING_DIRECTION = "east";
   let FRUIT_CELL = { x: 1, y: 1 }; // ToDo: Get a random cell coordiantes for a fruit
   let GRID_DIMENTIONS = { x: 20, y: 15 };
+  let IS_FRUIT_EATEN = false;
+  let IS_GAME_OVER = false;
+  let SCORE = 0
 
   //  ==================== FUNCTIONS ====================
   function mountHtmlGrid() {
@@ -45,8 +47,22 @@ window.addEventListener("load", () => {
       }
 
       // Mount a row
-      document.getElementById("game-grid-container").appendChild(row);
+      document.getElementById("root").appendChild(row);
     }
+  }
+
+  function showGameOverScreen() {
+    GRID_DIMENTIONS.x
+    GRID_DIMENTIONS.y
+
+    document.getElementById("root").innerHTML =
+    `
+      <div id="game-over-screen">
+        <h1 id="game-over-title">GAME OVER</h1>
+        <h2 id="game-over-score-title">Your score is: <span id="game-score">${SCORE}</span></h2>
+        <button id="playagain-button">Play again</button>
+      </div>
+    `
   }
 
   function renderFrame() {
@@ -86,10 +102,6 @@ window.addEventListener("load", () => {
     const newFruitCell = document.getElementById(
       `${FRUIT_CELL.x},${FRUIT_CELL.y}`
     );
-
-    // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
-    console.log(`${FRUIT_CELL.x},${FRUIT_CELL.y}`);
-    // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
 
     newFruitCell.classList.add("fruit");
   }
@@ -168,22 +180,19 @@ window.addEventListener("load", () => {
     };
 
     const isFruitColission = () => {
+      console.log("checking for fruit cell for colission");
+      console.log("FRIUT_CELL is", "X:", FRUIT_CELL.x, "Y:", FRUIT_CELL.y);
+      console.log("SNAKE HEAD IS is", SNAKE.head);
+
+
+      SCORE++
       return SNAKE.head === FRUIT_CELL;
     };
 
-    // Testing Testing Testing Testing Testing Testing
-    if (isWallColission()) {
-      console.error("WALL HIT");
+    if (isWallColission() || isSelfColission()) {
+      console.log("GAME OVER");
+      IS_GAME_OVER = true;
     }
-
-    // if (isSelfColission()) {
-    //   console.error("SELF HIT");
-    // }
-
-    if (isFruitColission()) {
-      console.error("Fruit Colided");
-    }
-    // Testing Testing Testing Testing Testing Testing
   }
 
   function createNewFruit() {
@@ -193,9 +202,6 @@ window.addEventListener("load", () => {
 
     FRUIT_CELL.x = getRandomNumber(1, GRID_DIMENTIONS.x);
     FRUIT_CELL.y = getRandomNumber(1, GRID_DIMENTIONS.y);
-    // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
-    console.log("IM IN LOVE WITH THE WORLD!!!", FRUIT_CELL);
-    // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
   }
 
   function main() {
@@ -204,10 +210,20 @@ window.addEventListener("load", () => {
     // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
     createNewFruit();
     // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
-    setInterval(() => {
-      renderFrame();
-      handleCollision();
-    }, 500);
+
+    function startGame() {
+      let intervalId = setInterval(function self() {
+        console.log("Game running...");
+        renderFrame();
+        handleCollision();
+        if (IS_GAME_OVER === true) {
+          clearInterval(intervalId);
+          console.log("Game loop stopped.");
+          showGameOverScreen()
+        }
+      }, 500);
+    }
+    startGame();
   }
 
   //  ==================== START ====================

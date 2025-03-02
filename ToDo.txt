@@ -1,0 +1,31 @@
+# TODO ########################
+
+- Game over screen
+---- space text correctlty
+---- reset button
+-------- resetGame function: resets state
+---------- initialize with state object
+------------ initiliazeState function R: newGame state
+
+Fruit Spawn
+- Create random spawn position function
+- Prevent spawning over snake or wall
+
+Implement isSelfColission()
+
+- Verify colissions
+-- Verify self colission
+-- Verify fruit colission
+
+Add wall class to walls when the grid is mounted
+
+
+
+
+
+# DONE ########################
+-- Verify wall colission 
+-- gameOver function R: halts game 
+
+
+-- gameOver screen

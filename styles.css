@@ -2,10 +2,10 @@ body {
   background-color: lightgreen;
 }
 
-#game-grid-container {
+#root {
   border-radius: 2px;
-	width: fit-content;
-	overflow: hidden;
+  width: fit-content;
+  overflow: hidden;
 }
 
 .row {
@@ -31,4 +31,32 @@ body {
 
 .fruit {
   background-color: violet;
+}
+
+#game-over-screen {
+  width: 318px;
+  height: 242px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-family: monospace;
+  color: lightgreen;
+
+  background-color: green;
+}
+
+#playagain-button {
+  background-color: lightgreen;
+  color: green;
+  border: 2px solid lightgreen;
+  cursor: pointer;
+}
+
+#playagain-button:hover {
+  background-color: green;
+  color: lightgreen;
+  border: 2px solid lightgreen;
 }
