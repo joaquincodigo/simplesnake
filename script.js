@@ -24,7 +24,7 @@ window.addEventListener("load", () => {
   let GRID_DIMENTIONS = { x: 20, y: 15 };
   let IS_FRUIT_EATEN = false;
   let IS_GAME_OVER = false;
-  let SCORE = 0
+  let SCORE = 0;
 
   //  ==================== FUNCTIONS ====================
   function mountHtmlGrid() {
@@ -42,6 +42,16 @@ window.addEventListener("load", () => {
         cell.classList.add("cell");
         cell.setAttribute("id", `${j},${i}`); // Id for editing contents
 
+        // Mark walls for syling
+        if (
+          i === 0 || // Top wall
+          j === 0 || // Left wall
+          i === GRID_DIMENTIONS.y || // Bottom wall
+          j === GRID_DIMENTIONS.x // Right wall
+        ) {
+          cell.classList.add("wall");
+        }
+
         // Mount a cell
         row.appendChild(cell);
       }
@@ -52,17 +62,16 @@ window.addEventListener("load", () => {
   }
 
   function showGameOverScreen() {
-    GRID_DIMENTIONS.x
-    GRID_DIMENTIONS.y
+    GRID_DIMENTIONS.x;
+    GRID_DIMENTIONS.y;
 
-    document.getElementById("root").innerHTML =
-    `
+    document.getElementById("root").innerHTML = `
       <div id="game-over-screen">
         <h1 id="game-over-title">GAME OVER</h1>
         <h2 id="game-over-score-title">Your score is: <span id="game-score">${SCORE}</span></h2>
         <button id="playagain-button">Play again</button>
       </div>
-    `
+    `;
   }
 
   function renderFrame() {
@@ -184,8 +193,7 @@ window.addEventListener("load", () => {
       console.log("FRIUT_CELL is", "X:", FRUIT_CELL.x, "Y:", FRUIT_CELL.y);
       console.log("SNAKE HEAD IS is", SNAKE.head);
 
-
-      SCORE++
+      SCORE++;
       return SNAKE.head === FRUIT_CELL;
     };
 
@@ -212,6 +220,7 @@ window.addEventListener("load", () => {
     // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
 
     function startGame() {
+      document.getElementById('root').focus()
       let intervalId = setInterval(function self() {
         console.log("Game running...");
         renderFrame();
@@ -219,7 +228,7 @@ window.addEventListener("load", () => {
         if (IS_GAME_OVER === true) {
           clearInterval(intervalId);
           console.log("Game loop stopped.");
-          showGameOverScreen()
+          showGameOverScreen();
         }
       }, 500);
     }

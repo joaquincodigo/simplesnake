@@ -2,10 +2,11 @@
 
 - Game over screen
 ---- space text correctlty
----- reset button
 -------- resetGame function: resets state
 ---------- initialize with state object
 ------------ initiliazeState function R: newGame state
+
+Add colission animation (some snake blinks)
 
 Fruit Spawn
 - Create random spawn position function
@@ -27,5 +28,5 @@ Add wall class to walls when the grid is mounted
 -- Verify wall colission 
 -- gameOver function R: halts game 
 
-
 -- gameOver screen
+---- reset button
