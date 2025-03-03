@@ -99,20 +99,6 @@ window.addEventListener("load", () => {
         newSnakeCell.classList.add("head");
       }
     }
-
-    // Render fruit
-    // Remove previous fruit
-    const oldFruitCell = document.getElementById(
-      `${FRUIT_CELL.x},${FRUIT_CELL.y}`
-    );
-    oldFruitCell.classList.remove("fruit");
-
-    // Re-draw fruit
-    const newFruitCell = document.getElementById(
-      `${FRUIT_CELL.x},${FRUIT_CELL.y}`
-    );
-
-    newFruitCell.classList.add("fruit");
   }
 
   function moveSnake() {
@@ -174,7 +160,7 @@ window.addEventListener("load", () => {
     });
   }
 
-  function handleCollision() {
+  function handleCollisions() {
     const isWallColission = () => {
       return (
         SNAKE.head.y === 0 || // Top wall
@@ -189,45 +175,46 @@ window.addEventListener("load", () => {
     };
 
     const isFruitColission = () => {
-      console.log("checking for fruit cell for colission");
-      console.log("FRIUT_CELL is", "X:", FRUIT_CELL.x, "Y:", FRUIT_CELL.y);
-      console.log("SNAKE HEAD IS is", SNAKE.head);
-
-      SCORE++;
-      return SNAKE.head === FRUIT_CELL;
+      return SNAKE.head.x === FRUIT_CELL.x && SNAKE.head.y === FRUIT_CELL.y;
     };
 
     if (isWallColission() || isSelfColission()) {
-      console.log("GAME OVER");
       IS_GAME_OVER = true;
+    }
+
+    if (isFruitColission()) {
+      // Remove old fruit
+      let oldFruit = document.getElementsByClassName("fruit")[0];
+      oldFruit.classList.remove("fruit");
+      renderNewFruit();
     }
   }
 
-  function createNewFruit() {
+  function renderNewFruit() {
+    //  Get a new fruit
     const getRandomNumber = (min, max) => {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     };
+    FRUIT_CELL.x = getRandomNumber(1, GRID_DIMENTIONS.x); //We have to exclude walls
+    FRUIT_CELL.y = getRandomNumber(1, GRID_DIMENTIONS.y); //We have to exclude walls
 
-    FRUIT_CELL.x = getRandomNumber(1, GRID_DIMENTIONS.x);
-    FRUIT_CELL.y = getRandomNumber(1, GRID_DIMENTIONS.y);
+    // Render the new fruit
+    let newFruit = document.getElementById(`${FRUIT_CELL.x},${FRUIT_CELL.y}`);
+    newFruit.classList.add("fruit");
   }
 
   function main() {
     mountHtmlGrid();
     initializeKeyHandling();
-    // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
-    createNewFruit();
-    // TESTING-TESTING-TESTING-TESTING-TESTING-TESTING
+    renderNewFruit();
 
     function startGame() {
-      document.getElementById('root').focus()
+      document.getElementById("root").focus();
       let intervalId = setInterval(function self() {
-        console.log("Game running...");
         renderFrame();
-        handleCollision();
+        handleCollisions();
         if (IS_GAME_OVER === true) {
           clearInterval(intervalId);
-          console.log("Game loop stopped.");
           showGameOverScreen();
         }
       }, 500);
